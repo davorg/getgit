@@ -1,0 +1,16 @@
+#!/bin/bash
+
+cd $HOME/git
+
+while read repo
+do
+  if [ -d $repo ]; then
+    echo $repo exists
+    cd $repo
+    git fetch
+    cd -
+  else
+    echo $repo doesn\'t exist
+    git clone git@github.com:davorg/$repo.git
+  fi
+done < "${1:-/dev/stdin}"
